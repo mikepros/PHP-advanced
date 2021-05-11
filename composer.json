@@ -9,5 +9,8 @@
             "email": "mike.proshchuk@gmail.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "require": {
+        "guzzlehttp/guzzle": "^7.4@dev"
+    }
 }
