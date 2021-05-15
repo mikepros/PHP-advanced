@@ -81,8 +81,6 @@ class Car implements MovableInterface, IFuelable {
     
     public function refuel(Fuel $fuel) : bool
     {
-        $result = &$this->fuelPercentage;
-
         if ($this->fuelPercentage)
             $this->message('Бак не порожній');
 
@@ -92,7 +90,7 @@ class Car implements MovableInterface, IFuelable {
             $this->message('Авто заправлено.');
         }
 
-        return (bool)$result;
+        return $this->getFuelValue() === 100;
     }
 
     public function getRequiredFuel() : array
