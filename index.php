@@ -1,8 +1,8 @@
 <?php
-require_once 'vendor/autoload.php';
 
-use Mikepros\Homework4\Car;
-use Mikepros\Homework4\Fuel;
+use Mikepros\Homework4\{Car, Fuel};
+
+require_once 'vendor/autoload.php';
 
 $car = new Car('Tesla', ['gas', 'petrol'], 200);
 
