@@ -1,0 +1,19 @@
+{
+    "name": "mikepros/php-advanced-homework5",
+    "description": "Learning project",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mikepros",
+            "email": "mike.proshchuk@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload" : {
+        "psr-4" : {
+            "mikepros\\homework5\\app\\" : "app",
+            "mikepros\\homework5\\core\\" : "core"
+        }
+    }
+}
