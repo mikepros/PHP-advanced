@@ -12,15 +12,15 @@ $fuel = $car->getRequiredFuel();
 $car->refuel(new Fuel($fuel[0]));
 
 $car->start();
-$car->up(100);
-$car->up(100);
-$car->up(100);
+$car->up(100000);
+$car->down(10);
+$car->down(10);
+$car->down(10);
 
 $car->stop();
 $car->down(100);
 
-echo $car->getInfo();
-echo "Кількість пального в баку у {$car->getName()}: {$car->getFuelValue()}\n"; 
+echo "Кількість пального в баку у {$car->getName()}: {$car->getFuelValue()}\n";
 
 $car->down(30);
 $car->up(10);
@@ -30,5 +30,3 @@ $car->refuel(new Fuel('C2H5OH'));
 
 $car->start();
 $car->up(30);
-
-echo $car->getInfo();

@@ -2,7 +2,8 @@
 
 namespace Mikepros\Homework4;
 
-class Fuel {
+class Fuel
+{
     public function __construct(private string $type) {}
 
     /**

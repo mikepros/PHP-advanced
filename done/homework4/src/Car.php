@@ -2,11 +2,11 @@
 
 namespace Mikepros\Homework4;
 
-class Car implements MovableInterface, IFuelable {
-    
+class Car implements MovableInterface, IFuelable
+{
+
     private bool $isOn = false;
     private int $fuelPercentage = 0, $speed = 0;
-    private string $log = ''; 
     private Fuel $fuel;
 
     public function __construct(
@@ -15,7 +15,7 @@ class Car implements MovableInterface, IFuelable {
         private int $maxSpeed
     ) {}
 
-    public function start() : bool
+    public function start(): bool
     {
         if ($this->isOn or !$this->useFuel())
             $this->message('Не можу завести авто.');
@@ -28,7 +28,7 @@ class Car implements MovableInterface, IFuelable {
         return $this->isOn;
     }
 
-    public function stop() : bool
+    public function stop(): bool
     {
         if ($this->isOn) {
             $this->isOn = false;
@@ -40,18 +40,15 @@ class Car implements MovableInterface, IFuelable {
         return !$this->isOn;
     }
 
-    public function up(int $speed) : bool
+    public function up(int $speed): bool
     {
         $result = false;
-        if (!$this->isOn or !$this->useFuel())
+        if (!$this->isOn or !$this->useFuel()) {
             $this->message('Не можу набрати швидкість.');
-
-        else if (($this->speed += $speed) > $this->maxSpeed) {
+        } elseif (($this->speed += $speed) > $this->maxSpeed) {
             $this->speed = $this->maxSpeed;
             $this->message('Набрана максимальна швидкість: ' . $this->maxSpeed);
-        }
-
-        else {
+        } else {
             $this->message('Швидкість збільшено до ' . $this->speed);
             $result = true;
         }
@@ -69,55 +66,46 @@ class Car implements MovableInterface, IFuelable {
         ) {
             $this->speed = 0;
             $this->message('Авто зупинено.');
-        }
-
-        else {
+        } else {
             $this->message('Швидкість зменшено до ' . $this->speed);
             $result = true;
         }
 
         return $result;
     }
-    
-    public function refuel(Fuel $fuel) : bool
+
+    public function refuel(Fuel $fuel): bool
     {
-        if ($this->fuelPercentage)
-            $this->message('Бак не порожній');
+        $this->fuelPercentage = 100;
+        $this->fuel = $fuel;
+        $this->message('Авто заправлено.');
 
-        else {
-            $this->fuelPercentage = 100;
-            $this->fuel = $fuel;
-            $this->message('Авто заправлено.');
-        }
-
-        return $this->getFuelValue() === 100;
+        return true;
     }
 
-    public function getRequiredFuel() : array
+    public function getRequiredFuel(): array
     {
         return $this->requiredFuel;
     }
 
-    public function getFuelValue() : int
+    public function getFuelValue(): int
     {
         return $this->fuelPercentage;
     }
 
     /**
-     * Використати наявне пальне. 
+     * Використати наявне пальне.
      * @return bool
      */
-    private function useFuel() : bool
+    private function useFuel(): bool
     {
         $result = false;
 
-        if (!$this->fuelPercentage)
+        if ($this->fuelPercentage === 0) {
             $this->message('Порожній бак!');
-
-        else if (!in_array($this->fuel->getType(), $this->getRequiredFuel()))
+        } elseif (!\in_array($this->fuel->getType(), $this->getRequiredFuel())) {
             $this->message('Залито погане пальне.');
-
-        else {
+        } else {
             $this->fuelPercentage -= 10;
             $result = true;
         }
@@ -132,24 +120,11 @@ class Car implements MovableInterface, IFuelable {
      * @param string $message
      * @return void
      */
-    private function message(string $message) : void
+    private function message(string $message): void
     {
-        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-        $method = array_pop($trace)['function']; // Публічний метод, який був викликаний
-        $this->log .= "({$this->getName()}) $method: $message" . PHP_EOL;
-    }
-
-    public function getInfo() : string
-    {
-        $result = $this->log;
-
-        if ($this->log === '')
-            $result = 'Нічого не змінилось.';
-
-        else  {
-            $this->log = ''; // Очистити буфер
-            return $result;
-        }
+        $trace = \debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        $method = \array_pop($trace)['function']; // Публічний метод, який був викликаний
+        echo "({$this->getName()}) $method: $message" . PHP_EOL;
     }
 
     public function getName() : string
